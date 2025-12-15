@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Slider</title>
+<style>
+.slider { width:400px; position:relative; }
+.slider img { width:100%; display:none; }
+.slider img.active { display:block; }
+
+button {
+    position:absolute;
+    top:45%;
+    padding:8px;
+}
+.prev { left:0; }
+.next { right:0; }
+
+.dot { height:10px; width:10px; background:gray; border-radius:50%; display:inline-block; }
+.dot.active { background:black; }
+</style>
+</head>
+
+<body>
+
+<div class="slider">
+    <img src="https://picsum.photos/400/200?1" class="active">
+    <img src="https://picsum.photos/400/200?2">
+    <img src="https://picsum.photos/400/200?3">
+
+    <button class="prev" onclick="prev()">❮</button>
+    <button class="next" onclick="next()">❯</button>
+</div>
+
+<div>
+    <span class="dot active" onclick="show(0)"></span>
+    <span class="dot" onclick="show(1)"></span>
+    <span class="dot" onclick="show(2)"></span>
+</div>
+
+<script>
+let index = 0;
+let slides = document.querySelectorAll(".slider img");
+let dots = document.querySelectorAll(".dot");
+
+function show(i){
+    slides[index].classList.remove("active");
+    dots[index].classList.remove("active");
+
+    index = i;
+
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
+}
+
+function next(){
+    show((index + 1) % slides.length);
+}
+
+function prev(){
+    show((index - 1 + slides.length) % slides.length);
+}
+
+setInterval(next, 3000);
+</script>
+
+</body>
+</html>
